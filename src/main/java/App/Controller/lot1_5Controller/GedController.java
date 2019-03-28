@@ -37,10 +37,5 @@ public class GedController implements Serializer<Ged> {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
-	
-	
 
 }

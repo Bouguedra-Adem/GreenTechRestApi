@@ -1,77 +1,142 @@
 package App.Model.lot1_5;
 
-import java.util.Date;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+	import javax.persistence.Entity;
+	import javax.persistence.GeneratedValue;
+	import javax.persistence.GenerationType;
+	import javax.persistence.Id;
+	import javax.persistence.Table;
 
 @Entity
 @Table(name="Document")
 public class Document {
+	@Id 
+	   @GeneratedValue(strategy=GenerationType.AUTO)
+	   private int id;
+	   @Column(name="nameDocument")  
+	    private String nameDocument="";
+	   @Column(name="bref_Description")  
+	    private String bref_description="";
+	   @Column(name="date_publication")
+	    private String date_publication;
+	   @Column (name="dateMsj")
+	   private String  dateMsj;
+	   @Column (name="type")
+	    private String type="";
+	   @Column (name="categorie")
+	    private String categorie="";
+	   private 	String tag;
+	   private 	String lienAssetes;
+	   
+	public Document() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
-   public Document(long id, String description, Date date_publication, Date dateMsj, String type) {
+	
+
+	public Document(int id, String nameDocument, String bref_description, String date_publication, String dateMsj,
+			String type, String categorie, String tag, String lienAssetes) {
 		super();
 		this.id = id;
-		Description = description;
+		this.nameDocument = nameDocument;
+		this.bref_description = bref_description;
 		this.date_publication = date_publication;
 		this.dateMsj = dateMsj;
 		this.type = type;
+		this.categorie = categorie;
+		this.tag = tag;
+		this.lienAssetes = lienAssetes;
 	}
-   public Document() {}
-@Id 
-   @GeneratedValue(strategy=GenerationType.AUTO)
-   private long id;
-   @Column(name="Description")  
-    private String Description="";
-   @Column(name="date_publication")
-    private Date date_publication;
-   @Column (name="dateMsj")
-   private Date dateMsj;
-   @Column (name="type")
-    private String type="";
- 
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNameDocument() {
+		return nameDocument;
+	}
+
+	public void setNameDocument(String nameDocument) {
+		this.nameDocument = nameDocument;
+	}
+
+	public String getBref_description() {
+		return bref_description;
+	}
+
+	public void setBref_description(String bref_description) {
+		this.bref_description = bref_description;
+	}
+
+	public String getDate_publication() {
+		return date_publication;
+	}
+
+	public void setDate_publication(String date_publication) {
+		this.date_publication = date_publication;
+	}
+
+	public String getDateMsj() {
+		return dateMsj;
+	}
+
+	public void setDateMsj(String dateMsj) {
+		this.dateMsj = dateMsj;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
     
-    @ManyToOne
-    @JoinColumn(name="ged_id")
-    private App.Model.lot1_5.Ged Ged;
-		
-		public long getId() {
-			return id;
-		}
-		public void setId(long id) {
-			this.id = id;
-		}
-		public String getDescription() {
-			return Description;
-		}
-		public void setDescription(String description) {
-			Description = description;
-		}
-		public Date getDate_publication() {
-			return date_publication;
-		}
-		public void setDate_publication(Date date_publication) {
-			this.date_publication = date_publication;
-		}
-		public Date getDateMsj() {
-			return dateMsj;
-		}
-		public void setDateMsj(Date dateMsj) {
-			this.dateMsj = dateMsj;
-		}
-		public String getType() {
-			return type;
-		}
-		public void setType(String type) {
-			this.type = type;
-		}
-		   
-		  
+	public String getLienAssetes() {
+		return lienAssetes;
+	}
+
+
+
+	public void setLienAssetes(String lienAssetes) {
+		this.lienAssetes = lienAssetes;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Document [id=" + id + ", nameDocument=" + nameDocument + ", bref_description=" + bref_description
+				+ ", date_publication=" + date_publication + ", dateMsj=" + dateMsj + ", type=" + type + ", categorie="
+				+ categorie + ", tag=" + tag + ", lienAssetes=" + lienAssetes + "]";
+	}
+   
+	
 } 

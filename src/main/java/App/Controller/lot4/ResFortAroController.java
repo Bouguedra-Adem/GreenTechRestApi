@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import App.Model.lot4.RessourceForrestiereAromatique;
-import App.service.lot4.ResFortAromService;
+import App.Services.lot4.ResFortAromService;
 
 @RestController
 public class ResFortAroController {

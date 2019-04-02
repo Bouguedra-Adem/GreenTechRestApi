@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import App.Model.lot4.organismeRecherch;
-import App.service.lot4.organismeRecherchService;
+import App.Services.lot4.organismeRecherchService;
 
 @RestController
 public class organismeController {

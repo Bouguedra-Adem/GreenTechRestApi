@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import App.Model.lot4.RessourceMarine;
-import App.service.lot4.RessourceMarineService;
+import App.Services.lot4.RessourceMarineService;
 
 @RestController
 public class RessourceController {

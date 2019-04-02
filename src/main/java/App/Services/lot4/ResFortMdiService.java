@@ -1,33 +1,34 @@
-package App.service.lot4;
+package App.Services.lot4;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import App.Model.lot4.RessourceMarine;
-import App.Repo.lot4.RessourceMarinRepo;
+import App.Model.lot4.RessourceForestiereMedionale;
+import App.Repo.lot4.ResFortMdiRepo;
+
 
 @Service
-public class RessourceMarineService {
+public class ResFortMdiService {
 
 	@Autowired
-	RessourceMarinRepo resRepo;
+	ResFortMdiRepo resRepo;
 	
-	public List<RessourceMarine> getAll(){
-		List<RessourceMarine> res = new ArrayList<>();
+	public List<RessourceForestiereMedionale> getAll(){
+		List<RessourceForestiereMedionale> res = new ArrayList<>();
 		resRepo.findAll().forEach(res::add);
 		return res;
 	}
 	
-	public RessourceMarine getRessourceById(Integer id) {
+	public RessourceForestiereMedionale getRessourceById(Integer id) {
 		return resRepo.findByid(id);
 	}
 	
-	public RessourceMarine getRessourceByName(String Name) {
+	public RessourceForestiereMedionale getRessourceByName(String Name) {
 		return resRepo.findByName(Name);
 	}
 	
-	public void UpdateAddRessource(RessourceMarine res) {
+	public void UpdateAddRessource(RessourceForestiereMedionale res) {
 		resRepo.save(res);
 	}
 	

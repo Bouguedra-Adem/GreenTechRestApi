@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import App.Model.lot4.famille;
-import App.service.lot4.familleService;
+import App.Services.lot4.familleService;
 
 @RestController
 public class familleController {

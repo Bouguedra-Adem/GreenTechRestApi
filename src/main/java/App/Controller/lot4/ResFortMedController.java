@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import App.Model.lot4.RessourceForestiereMedionale;
-import App.service.lot4.ResFortMdiService;
+import App.Services.lot4.ResFortMdiService;
 
 @RestController
 public class ResFortMedController {

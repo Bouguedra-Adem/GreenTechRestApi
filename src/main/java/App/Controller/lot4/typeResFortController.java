@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import App.Model.lot4.TypeResFort;
-import App.service.lot4.TypeResService;
+import App.Services.lot4.TypeResService;
 
 @RestController
 public class typeResFortController {

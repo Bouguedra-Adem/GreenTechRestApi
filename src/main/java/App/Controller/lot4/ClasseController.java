@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import App.Model.lot4.ClasseEmb;
-import App.service.lot4.ClasseService;
+
 
 @RestController
 public class ClasseController {
 
 	@Autowired
-	ClasseService classServ;
+	App.Services.lot4.ClasseService classServ;
 	
 	@RequestMapping("/class")
 	public List<ClasseEmb> getAllClasses(){

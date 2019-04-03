@@ -6,32 +6,31 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import App.Model.lot4.RessourceForrestiereAromatique;
-import App.Repo.lot4.ResFortAromRepo;
+import App.Model.lot4.ressourceAliAgr;
+import App.Repo.lot4.ressourceAliAgrRepo;
 
 
 @Service
-public class ResFortAromService {
+public class ressourceAliAgrService {
 
 	@Autowired
-	ResFortAromRepo resRepo;
+	ressourceAliAgrRepo resRepo;
 	
-	
-	public List<RessourceForrestiereAromatique> getAll(){
-		List<RessourceForrestiereAromatique> res = new ArrayList<>();
+	public List<ressourceAliAgr> getAll(){
+		List<ressourceAliAgr> res = new ArrayList<>();
 		resRepo.findAll().forEach(res::add);
 		return res;
 	}
 	
-	public RessourceForrestiereAromatique getRessourceById(Integer id) {
+	public ressourceAliAgr getRessourceById(Integer id) {
 		return resRepo.findByid(id);
 	}
 	
-	public RessourceForrestiereAromatique getRessourceByName(String Name) {
+	public ressourceAliAgr getRessourceByName(String Name) {
 		return resRepo.findByName(Name);
 	}
 	
-	public void UpdateAddRessource(RessourceForrestiereAromatique res) {
+	public void UpdateAddRessource(ressourceAliAgr res) {
 		resRepo.save(res);
 	}
 	

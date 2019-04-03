@@ -1,20 +1,27 @@
 package App.Model.lot4;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "groupe")
-public class groupe {
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+public class groupe implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonProperty("id")
 	private Integer id;
 	@JsonProperty("name")
@@ -23,6 +30,10 @@ public class groupe {
 	@JsonProperty("descGroupe")
     @Column(name="descGroupe")
 	private String descGroupe;
+	
+	@ManyToMany(mappedBy = "groupes")
+    private Set<ressourceMicroorganisme> ressources = new HashSet<>();
+    
 	public groupe() {
 		
 	}

@@ -1,18 +1,26 @@
 package App.Model.lot4;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "ressource_fort_aromatique")
-public class RessourceForrestiereAromatique {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+public class RessourceForrestiereAromatique implements Serializable  {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonProperty("id")
 	private Integer id;
 	@JsonProperty("name")
@@ -33,9 +41,16 @@ public class RessourceForrestiereAromatique {
 	@JsonProperty("produitDerive")
     @Column(name="produitDerive")
 	private String produitDerive;
+	
+	
+    
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "type_id", nullable = false)
+    @JsonIgnore
+    private Type type;
+	
 	public RessourceForrestiereAromatique() {
 	}
-
 	
 	public RessourceForrestiereAromatique(Integer id, String name, String description, String imageURL,
 			boolean validite, String degreConfidentialite, String produitDerive) {
@@ -48,8 +63,8 @@ public class RessourceForrestiereAromatique {
 		this.degreConfidentialite = degreConfidentialite;
 		this.produitDerive = produitDerive;
 	}
-
-
+    
+    
 	public Integer getId() {
 		return id;
 	}
@@ -107,9 +122,13 @@ public class RessourceForrestiereAromatique {
 	public void setProduitDerive(String produitDerive) {
 		this.produitDerive = produitDerive;
 	}
-
-
-
+	
+	public Type getType() {
+		return type;
+	}
+	public void setType(Type type) {
+		this.type = type;
+	}
 }
 	
 

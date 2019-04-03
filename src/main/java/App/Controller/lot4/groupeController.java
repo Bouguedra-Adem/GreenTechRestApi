@@ -1,5 +1,6 @@
 package App.Controller.lot4;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,43 +11,57 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import App.Model.lot4.groupe;
-import App.Services.lot4.groupeService;
-
+import App.Repo.lot4.groupeRepo;
 @RestController
 public class groupeController {
 	@Autowired
-	groupeService groupeserv;
-	
+	groupeRepo grouperepo;
+	/*
+	 * 
+	 * GET
+	 * 
+	 */
 	@RequestMapping("/groupes")
 	public List<groupe> getAll(){
-	return groupeserv.getAll();
+		List<groupe> clsemb = new ArrayList<>();
+		grouperepo.findAll().forEach(clsemb::add);
+		return clsemb;
 	}
-	
-    @RequestMapping(method=RequestMethod.POST,value="/postgroupe")
+	 @RequestMapping(method=RequestMethod.GET,value="/groupe/{id}")
+	 public groupe getById(@PathVariable Integer id) {
+	    	return grouperepo.findByid(id);
+	}
+    @RequestMapping(method=RequestMethod.GET,value="/groupe/name/{name}")
+	public List<groupe> getByName(@PathVariable String name) {
+	return grouperepo.findByName(name);
+	}  
+	    
+	    /*
+	     * 
+	     * POST
+	     * 
+	     */
+  /*  @RequestMapping(method=RequestMethod.POST,value="/postgroupe")
     public void  add(@RequestBody groupe gr) {
     	groupeserv.UpdateAdd(gr);
-    }
-    
-    @RequestMapping(method=RequestMethod.DELETE,value="/deleteidgroupe/{id}")
-    public void deleteById(@PathVariable Integer id) {
-    	groupeserv.deleteById(id);
-    	}
-
-    @RequestMapping(method=RequestMethod.DELETE,value="/deletenamegroupe/{name}")
-    public void deleteByName(@PathVariable String name) {
-    	groupeserv.deleteByName(name);
-    }
-    @RequestMapping(method=RequestMethod.GET,value="/findidgroupe/{id}")
-    public groupe getById(@PathVariable Integer id) {
-    	return groupeserv.getById(id);
-    }
-    @RequestMapping(method=RequestMethod.GET,value="/findnamegroupe/{name}")
-    public groupe getByName(@PathVariable String name) {
-    	return groupeserv.getByName(name);
     }
     
     @RequestMapping(method=RequestMethod.PUT,value="/updategroupe")
     public void update(@RequestBody groupe gr) {
     	groupeserv.UpdateAdd(gr);
+    }*/
+    /*
+     * 
+     * DELETE
+     */
+    
+    @RequestMapping(method=RequestMethod.DELETE,value="/groupe/{id}")
+    public void deleteById(@PathVariable Integer id) {
+    	grouperepo.deleteById(id);
+    	}
+
+    @RequestMapping(method=RequestMethod.DELETE,value="/groupe/name/{name}")
+    public void deleteByName(@PathVariable String name) {
+    	grouperepo.deleteByName(name);
     }
 }

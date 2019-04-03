@@ -1,6 +1,9 @@
 package App.Controller.lot4;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,43 +13,87 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import App.Model.lot4.RessourceMarine;
-import App.Services.lot4.RessourceMarineService;
+import App.Repo.lot4.EmbranchementRepo;
+import App.Repo.lot4.RessourceMarinRepo;
+import App.exception.NotFoundException;
+
 
 @RestController
 public class RessourceController {
 	@Autowired
-	RessourceMarineService resSevMarine;
-	
-	@RequestMapping("/ressource")
+	RessourceMarinRepo resRepo;
+	@Autowired
+	EmbranchementRepo emrepo;
+	/*
+	 * GET
+	 * 
+	 */
+	@RequestMapping(method=RequestMethod.GET,value="/ressourceMarines")
 	public List<RessourceMarine> getAllRessource(String ressource){
-	return resSevMarine.getAll();
+		List<RessourceMarine> res = new ArrayList<>();
+		resRepo.findAll().forEach(res::add);
+		return res;
 	}
 	
-    @RequestMapping(method=RequestMethod.POST,value="/post")
-    public void  addRessource(@RequestBody RessourceMarine ressource) {
-      	resSevMarine.UpdateAddRessource(ressource);
+	
+	@RequestMapping(method=RequestMethod.GET,value="/ressourceMarine/{id}")
+    public RessourceMarine getResById(@PathVariable Integer id) {
+    return resRepo.findByid(id);
     }
-    
-    @RequestMapping(method=RequestMethod.DELETE,value="/deleteid/{id}")
+    @RequestMapping(method=RequestMethod.GET,value="/ressourceMarine/name/{name}")
+    public List<RessourceMarine> getResByName(@PathVariable String name) {
+    return resRepo.findByName(name);
+    }
+    @RequestMapping(method=RequestMethod.GET,value="/embranchement/{embranchementid}/ressourceMarines")
+	public List<RessourceMarine> getAllRessourceByEmbranchementId( @PathVariable Integer embranchementid){
+		List<RessourceMarine> ress = new ArrayList<>();
+		resRepo.findByEmbranchementId(embranchementid).forEach(ress::add);
+		return ress;
+	}
+	/*
+	 * 
+	 * POST
+	 * 
+	 */
+    @RequestMapping(method=RequestMethod.POST,value="/embranchement/{embranchementid}/ressourceMarines")
+    public RessourceMarine  addRessource(@PathVariable Integer embranchementid,@Valid @RequestBody RessourceMarine ress) {
+       return emrepo.findById(embranchementid).map(emb ->{
+    	   ress.setEmbranchement(emb);
+    		return resRepo.save(ress);
+    	}).orElseThrow(() ->new NotFoundException("Embranchement not fount"));
+    }
+ 
+    @RequestMapping(method=RequestMethod.PUT,value="/embranchement/{embranchementid}/ressourceMarine/{ressourceMarineid}")
+    public RessourceMarine updateRessourceMarine(@PathVariable Integer embranchementid,
+ 			@PathVariable Integer ressourceMarineid,
+ 			@Valid @RequestBody RessourceMarine ressourceMarineUpdate) {
+ 	   if(!emrepo.existsById(embranchementid)) {
+    		throw new NotFoundException("Embranchement not found!");
+    	}
+    	
+        return resRepo.findById(ressourceMarineid)
+                .map(ressm -> {
+                ressm.setDegreConfidentialite(ressourceMarineUpdate.getDegreConfidentialite());
+             	ressm.setDescription(ressourceMarineUpdate.getDescription());
+                ressm.setImageURL(ressourceMarineUpdate.getImageURL());
+                ressm.setName(ressourceMarineUpdate.getName());
+                ressm.setValidite(ressourceMarineUpdate.isValidite());
+                return resRepo.save(ressm);
+                }).orElseThrow(() -> new NotFoundException("Assignment not found!"));
+      }
+   
+    /*
+     * 
+     * DELETE
+     * 
+     */
+    @RequestMapping(method=RequestMethod.DELETE,value="ressourceMarine/{id}")
     public void deleteResById(@PathVariable Integer id) {
-    	resSevMarine.deleteRessource(id);
+    	resRepo.deleteById(id);
     	}
 
-    @RequestMapping(method=RequestMethod.DELETE,value="/deletename/{name}")
+    @RequestMapping(method=RequestMethod.DELETE,value="/ressourceMarine/name/{name}")
     public void deleteResByName(@PathVariable String name) {
-    	resSevMarine.deleteRessourceByName(name);
-    }
-    @RequestMapping(method=RequestMethod.GET,value="/findid/{id}")
-    public RessourceMarine getResById(@PathVariable Integer id) {
-    	return resSevMarine.getRessourceById(id);
-    }
-    @RequestMapping(method=RequestMethod.GET,value="/findname/{name}")
-    public RessourceMarine getResByName(@PathVariable String name) {
-    	return resSevMarine.getRessourceByName(name);
-    }
-    
-    @RequestMapping(method=RequestMethod.PUT,value="/update")
-    public void updateRes(@RequestBody RessourceMarine ressource) {
-    	resSevMarine.UpdateAddRessource(ressource);
+    	resRepo.deleteByName(name);
     }
 }

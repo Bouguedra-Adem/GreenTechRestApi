@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import App.Model.lot1_5.Document;
 import java.util.List;
 
-public interface DocumentRep extends JpaRepository<Document, Integer> {
+public interface DocumentRep extends  JpaRepository<Document, Integer> {
 
 	Document findBynameDocument(String name);
 

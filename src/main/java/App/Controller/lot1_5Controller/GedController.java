@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.serializer.Serializer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +59,7 @@ public class GedController implements Serializer<Ged> {
 
 	 @PostMapping(value = "/Doc")
 	    public ResponseEntity<Void> AddDocument(@RequestBody Document doc) {
+		
 	        Document DocAdd=  DocService.CreatDocument(doc);
 	        if (DocAdd == null)
 	            return ResponseEntity.noContent().build();
@@ -70,7 +72,10 @@ public class GedController implements Serializer<Ged> {
 	        return ResponseEntity.created(location).build();
 	    }
 	
-
+     @DeleteMapping(value = "/Doc/{id}")
+     public void DeleteDoc(@PathVariable int id ) {
+    	 this.DocService.DeleteDocument(id);
+     }
 
 	@Override
 	public void serialize(Ged object, OutputStream outputStream) throws IOException {

@@ -7,6 +7,7 @@ import App.Model.User.user;
 
 public interface UserRepo extends  JpaRepository<user, Integer> {
 	
-    user findBymotdepasse(String name);
+    user findBypass(String Pass);
+    user findByid(int id);
         
 }

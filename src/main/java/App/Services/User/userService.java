@@ -1,5 +1,6 @@
 package App.Services.User;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javax.annotation.Resource;
@@ -22,9 +23,16 @@ public class userService  {
 	@Resource
 	private DocumentRep DocRepo;
 	
-	
+    public List<user> getAlluser(){
+    	return this.UserRepo.findAll();
+    }
 	public user findByPassword(String Password) {
-		return this.UserRepo.findBymotdepasse(Password);
+		System.out.println(this.UserRepo.findBypass(Password));
+		return this.UserRepo.findBypass(Password);
+	}
+	public user findByid(int id) {
+		
+		return this.UserRepo.findByid(id);
 	}
 	public user saveUser(user User) {
 		    
@@ -44,12 +52,16 @@ public class userService  {
 	}
 	
 	public void saveDocument(int idDocument,int iduser) {
-		 user us=this.UserRepo.getOne(iduser);
+		   user us=this.UserRepo.getOne(iduser);
 		 System.out.println(us.toString());
-		 Document document=this.DocRepo.getOne(idDocument);
-		 System.out.println(document.toString());
-		 us.getDoc().add(document);
-		 this.UserRepo.save(us);
+		   Document document=this.DocRepo.getOne(idDocument);
+		   if (!us.getDoc().contains(document)) {
+		 
+		   us.getDoc().add(document);
+	       this.UserRepo.save(us); 
+		   }
+		
+	
 	}
 		 
 	

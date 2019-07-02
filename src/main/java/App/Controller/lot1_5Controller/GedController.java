@@ -40,7 +40,7 @@ public class GedController implements Serializer<Ged> {
 	@GetMapping ("/Ged")
 	public Ged returnAllGed() {
 		Ged ged=new Ged();
-		System.out.println(returnAllDocument().toString());
+		
 		ged.setDocument(returnAllDocument());
 		ged.setNbDocument(returnAllDocument().size());
 		return ged;
@@ -48,8 +48,8 @@ public class GedController implements Serializer<Ged> {
 	@GetMapping ("/Doc")
 	public List<Document> returnAllDocument(){
 		List <Document> Doc=this.DocService.getAllDocument();
-		 for(Iterator<Document> it=Doc.iterator(); it.hasNext();) 
-	            System.out.println(it.next().toString()); 
+		
+	            
 		return Doc;
 	}
 	@GetMapping ("/Doc/{id}")

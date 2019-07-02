@@ -1,6 +1,7 @@
 package App.Controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import App.Model.User.DemandeRessource;
 import App.Model.User.user;
+import App.Model.lot1_5.Document;
 import App.Services.User.userService;
 
 @RestController
@@ -30,9 +32,13 @@ public class UserController {
 	private userService ServiceUser ;
 	
 	
+	@GetMapping("/adem")
+	public List<user> AllUser() {
+		return this.ServiceUser.getAlluser();
+	}
 	@PostMapping(value="/User")
-	public  void addUser (@Valid @RequestBody user User) {
-		 System.out.println(User);
+	public  void addUser ( @RequestBody user User) {
+		
 		  this.ServiceUser.saveUser(User);
 		 
 		}
@@ -46,8 +52,16 @@ public class UserController {
 	
 	@GetMapping("/User/var")
 	public user GetUser(@RequestParam String password) {
-		System.out.println(password +"aaaaaaaaaaniiiiiiiiihnaaa");
+		 System.out.println(password);
 		 return this.ServiceUser.findByPassword(password);
+	}
+	@GetMapping("/User/GetDocumentUser")
+	public List<Document> GetDocumentUser(@RequestParam  String iduser) {
+		
+		System.out.println(this.ServiceUser.findByid(Integer.valueOf(iduser)).getDoc());
+		  return this.ServiceUser.findByid(Integer.valueOf(iduser)).getDoc();
+		
+		
 	}
 	
 
@@ -57,9 +71,9 @@ public class UserController {
 		
 	}
 	
-	@PutMapping("/User/Document/{idDocument}/{iduser}")
+	@PutMapping("/User/Document")
 	
-	public void saveDocument(@PathVariable int idDocument,@PathVariable int iduser) {
+	public void saveDocument(@RequestParam int idDocument,@RequestParam int iduser) {
 		System.out.println("var1="+idDocument+"var2="+iduser);
 		this.ServiceUser.saveDocument( idDocument,iduser);
 	}

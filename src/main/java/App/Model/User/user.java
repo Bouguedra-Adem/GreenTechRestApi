@@ -2,47 +2,64 @@ package App.Model.User;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import App.Model.lot1_5.Document;
 
 @Entity
 
 @Table(name="Compte")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class user {
 	@Id 
 	   @GeneratedValue(strategy=GenerationType.AUTO)
 	   private int id;
-	   @NotEmpty
-	   private String Nom;
-	   @NotEmpty
-	   private String Prenom;
-	   @NotEmpty
-	   private String Nss;
-	   @NotEmpty
+	  
+	   private String nom;
+	
+	   private String prenom;
+	  
+	   private String nss;
+	
 	   private String email;
-	   @NotEmpty
-	   private String Organisme;
-	   @NotEmpty
-	   private String NumTelf;
-	   @NotEmpty
-	   private String motdepasse;
-	   @NotEmpty
+	   
+	   private String organisme;
+	
+	   private String numTelf;
+	   
+	   private String pass;
+	   
 	   private String role;
-	   @NotNull
+	  
 	   @OneToMany(mappedBy="User")
-	   private List<DemandeRessource> DemandeRess;
-	   @NotNull
-	   @ManyToMany(mappedBy = "Userr")
-	   private List<Document> Doc;
+	   private List<DemandeRessource> demandeRess;
+	   
+	   @ManyToMany(
+	            fetch = FetchType.LAZY,
+	            cascade = {CascadeType.MERGE, CascadeType.PERSIST}
+	    )
+	    @OnDelete(action = OnDeleteAction.CASCADE)
+	    @JsonIgnore
+	   
+	   private List<Document> doc;
 	      
 	public user() {
 		super();
@@ -52,78 +69,99 @@ public class user {
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getNom() {
-		return Nom;
+		return nom;
 	}
+
 	public void setNom(String nom) {
-		Nom = nom;
+		this.nom = nom;
 	}
+
 	public String getPrenom() {
-		return Prenom;
+		return prenom;
 	}
+
 	public void setPrenom(String prenom) {
-		Prenom = prenom;
+		this.prenom = prenom;
 	}
+
 	public String getNss() {
-		return Nss;
+		return nss;
 	}
+
 	public void setNss(String nss) {
-		Nss = nss;
+		this.nss = nss;
 	}
-	public String getOrganisme() {
-		return Organisme;
-	}
-	public void setOrganisme(String organisme) {
-		Organisme = organisme;
-	}
-	public String getNumTelf() {
-		return NumTelf;
-	}
-	public void setNumTelf(String numTelf) {
-		NumTelf = numTelf;
-	}
-	
-	public List<DemandeRessource> getDemandeRess() {
-		return DemandeRess;
-	}
-	public void setDemandeRess(List<DemandeRessource> demandeRess) {
-		DemandeRess = demandeRess;
-	}
-	public List<Document> getDoc() {
-		return Doc;
-	}
-	public void setDoc(List<Document> doc) {
-		Doc = doc;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public String getMotdepasse() {
-		return motdepasse;
-	}
-	public void setMotdepasse(String motdepasse) {
-		motdepasse = motdepasse;
-	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getOrganisme() {
+		return organisme;
+	}
+
+	public void setOrganisme(String organisme) {
+		this.organisme = organisme;
+	}
+
+	public String getNumTelf() {
+		return numTelf;
+	}
+
+	public void setNumTelf(String numTelf) {
+		this.numTelf = numTelf;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public List<DemandeRessource> getDemandeRess() {
+		return demandeRess;
+	}
+
+	public void setDemandeRess(List<DemandeRessource> demandeRess) {
+		this.demandeRess = demandeRess;
+	}
+
+	public List<Document> getDoc() {
+		return doc;
+	}
+
+	public void setDoc(List<Document> doc) {
+		this.doc = doc;
+	}
+
 	@Override
 	public String toString() {
-		return "user [id=" + id + ", Nom=" + Nom + ", Prenom=" + Prenom + ", Nss=" + Nss + ", email=" + email
-				+ ", Organisme=" + Organisme + ", NumTelf=" + NumTelf + ", motdepasse=" + motdepasse + ", role=" + role
-				+ ", DemandeRess=" + DemandeRess + ", Doc=" + Doc + "]";
+		return "user [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", nss=" + nss + ", email=" + email
+				+ ", organisme=" + organisme + ", numTelf=" + numTelf + ", pass=" + pass + ", role=" + role
+				+ ", demandeRess=" + demandeRess + ", doc=" + doc + "]";
 	}
+
 	
-	   
 	   
 	   
 	   

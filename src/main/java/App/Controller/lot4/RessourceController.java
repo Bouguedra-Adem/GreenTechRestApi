@@ -1,99 +1,78 @@
 package App.Controller.lot4;
 
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import App.Model.lot4.RessourceMarine;
-import App.Repo.lot4.EmbranchementRepo;
-import App.Repo.lot4.RessourceMarinRepo;
-import App.exception.NotFoundException;
-
+import App.Model.lot4.RESSOURCE;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class RessourceController {
+	
 	@Autowired
-	RessourceMarinRepo resRepo;
-	@Autowired
-	EmbranchementRepo emrepo;
-	/*
-	 * GET
-	 * 
-	 */
-	@RequestMapping(method=RequestMethod.GET,value="/ressourceMarines")
-	public List<RessourceMarine> getAllRessource(String ressource){
-		List<RessourceMarine> res = new ArrayList<>();
-		resRepo.findAll().forEach(res::add);
-		return res;
-	}
+	@Resource
+	private App.Services.lot4.RessourceService RessourceService;
 	
 	
-	@RequestMapping(method=RequestMethod.GET,value="/ressourceMarine/{id}")
-    public RessourceMarine getResById(@PathVariable Integer id) {
-    return resRepo.findByid(id);
-    }
-    @RequestMapping(method=RequestMethod.GET,value="/ressourceMarine/name/{name}")
-    public List<RessourceMarine> getResByName(@PathVariable String name) {
-    return resRepo.findByName(name);
-    }
-    @RequestMapping(method=RequestMethod.GET,value="/embranchement/{embranchementid}/ressourceMarines")
-	public List<RessourceMarine> getAllRessourceByEmbranchementId( @PathVariable Integer embranchementid){
-		List<RessourceMarine> ress = new ArrayList<>();
-		resRepo.findByEmbranchementId(embranchementid).forEach(ress::add);
-		return ress;
+	@GetMapping("/Ressources") 
+	public List<RESSOURCE> getAllRessources(){
+		return RessourceService.getAllRESSOURCES();
+	
 	}
-	/*
-	 * 
-	 * POST
-	 * 
-	 */
-    @RequestMapping(method=RequestMethod.POST,value="/embranchement/{embranchementid}/ressourceMarines")
-    public RessourceMarine  addRessource(@PathVariable Integer embranchementid,@Valid @RequestBody RessourceMarine ress) {
-       return emrepo.findById(embranchementid).map(emb ->{
-    	   ress.setEmbranchement(emb);
-    		return resRepo.save(ress);
-    	}).orElseThrow(() ->new NotFoundException("Embranchement not fount"));
+	@PostMapping(value = "/SaveRessource")
+    public boolean AddRessource(@RequestBody RESSOURCE ressource) {
+        RESSOURCE Add=  this.RessourceService.CreatRESSOURCE(ressource);
+        if (Add == null)
+            return false;
+        else
+        	return true;
     }
- 
-    @RequestMapping(method=RequestMethod.PUT,value="/embranchement/{embranchementid}/ressourceMarine/{ressourceMarineid}")
-    public RessourceMarine updateRessourceMarine(@PathVariable Integer embranchementid,
- 			@PathVariable Integer ressourceMarineid,
- 			@Valid @RequestBody RessourceMarine ressourceMarineUpdate) {
- 	   if(!emrepo.existsById(embranchementid)) {
-    		throw new NotFoundException("Embranchement not found!");
-    	}
-    	
-        return resRepo.findById(ressourceMarineid)
-                .map(ressm -> {
-                ressm.setDegreConfidentialite(ressourceMarineUpdate.getDegreConfidentialite());
-             	ressm.setDescription(ressourceMarineUpdate.getDescription());
-                ressm.setImageURL(ressourceMarineUpdate.getImageURL());
-                ressm.setName(ressourceMarineUpdate.getName());
-                ressm.setValidite(ressourceMarineUpdate.isValidite());
-                return resRepo.save(ressm);
-                }).orElseThrow(() -> new NotFoundException("Assignment not found!"));
-      }
-   
-    /*
-     * 
-     * DELETE
-     * 
-     */
-    @RequestMapping(method=RequestMethod.DELETE,value="ressourceMarine/{id}")
-    public void deleteResById(@PathVariable Integer id) {
-    	resRepo.deleteById(id);
-    	}
+	@DeleteMapping("/Ressource/{id}")
+	public ResponseEntity<String> DeleteRessource(@PathVariable("id") int id) {
+		System.out.println("Suppression de la ressource qui a l'ID = " + id + "...");
+		this.RessourceService.DeleteRESSOURCE(id);
+		return new ResponseEntity<>("Ressource supprimée avec succés!", HttpStatus.OK);
+	}
 
-    @RequestMapping(method=RequestMethod.DELETE,value="/ressourceMarine/name/{name}")
-    public void deleteResByName(@PathVariable String name) {
-    	resRepo.deleteByName(name);
-    }
+	@PutMapping("/Ressource/{id}")
+	  public ResponseEntity<RESSOURCE> UpdateRessource(@PathVariable("id") int id, @RequestBody RESSOURCE ressource) {
+	    System.out.println("Modification du document qui a l'ID = " + id + "...");
+	 
+	    Optional<RESSOURCE> ressourceDATA = this.RessourceService.findRESSOURCEById(id);
+	 
+	    if (ressourceDATA.isPresent()) {
+	      RESSOURCE _ressource = ressourceDATA.get();
+	      _ressource.setNameRESSOURCE(ressource.getNameRESSOURCE());
+	      _ressource.setDescriptionRESSOURCE(ressource.getDescriptionRESSOURCE());
+	      _ressource.setTypeRESSOURCE(ressource.getTypeRESSOURCE());
+	      _ressource.setCategorieRESSOURCE(ressource.getCategorieRESSOURCE());
+	      _ressource.setDateMaj(ressource.getDateMaj());
+	      _ressource.setTagRESSOURCE(ressource.getTagRESSOURCE());
+	      
+	      return new ResponseEntity<>(this.RessourceService.saveRESSOURCE(_ressource), HttpStatus.OK );
+	    } else {
+	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	  }
+	
+	
+
 }

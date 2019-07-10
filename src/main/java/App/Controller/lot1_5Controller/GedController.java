@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import App.Model.Ressource;
+import App.Model.lot4.RESSOURCE;
 import App.Model.lot1_5.Document;
 import App.Model.lot1_5.Ged;
 import App.Repo.lot1_5.DocumentRep;

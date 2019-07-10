@@ -1,6 +1,7 @@
 package App.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 
@@ -29,12 +30,13 @@ public class ApaService {
 	public APA getAPAById(int id) {
 		return this.ApaRep.getOne(id);
 	}
-	public APA getAPAByName(String name) {
-		return this.ApaRep.findBynameAPA(name);
+	public Optional<APA> findAPAById(int id) {
+		return this.ApaRep.findById(id);
 	}
-	public  List<APA> getAPAByCategorie(String name) {
-		return this.ApaRep.findByCategorie(name);
+	public APA saveAPA(APA apa) {
+		return this.ApaRep.save(apa);
 	}
+	
 }
 
 

@@ -13,72 +13,90 @@ public class APA {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String nameAPA;
-	private String categorie;
-	private String type;
-	private String  lienAssetes;
-	private String date_publication;
-	private String  dateMsj;
-	public APA() {
+	private String descriptionAPA;
+	private String typeAPA;
+	private String categorieAPA;
+	private String tagAPA;
+	private String datePublicationAPA;
+	private String dateMaj;
+	private int idEditeur;
 	
-		// TODO Auto-generated constructor stub
+	public APA() {
+		
 	}
-	public APA(int id, String nameAPA, String categorie, String type, String lienAssetes, String date_publication,
-			String dateMsj) {
+	public APA(int id, String nameAPA, String descriptionAPA, String typeAPA, String categorieAPA, String tagAPA,
+			String datePublicationAPA, String dateMaj, int idEditeur) {
 		super();
 		this.id = id;
 		this.nameAPA = nameAPA;
-		this.categorie = categorie;
-		this.type = type;
-		this.lienAssetes = lienAssetes;
-		this.date_publication = date_publication;
-		this.dateMsj = dateMsj;
+		this.descriptionAPA = descriptionAPA;
+		this.typeAPA = typeAPA;
+		this.categorieAPA = categorieAPA;
+		this.tagAPA = tagAPA;
+		this.datePublicationAPA = datePublicationAPA;
+		this.dateMaj = dateMaj;
+		this.idEditeur = idEditeur;
 	}
+	
+	@Override
+	public String toString() {
+		return "APA [id=" + id + ", nameAPA=" + nameAPA + ", descriptionAPA=" + descriptionAPA + ", typeAPA=" + typeAPA + ", categorieAPA="
+				+ categorieAPA + ", tagAPA=" + tagAPA + ", datePublicationAPA=" + datePublicationAPA + ", dateMaj=" + dateMaj + ", idEditeur=" + idEditeur + "]";
+	}
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getnameAPA() {
+	public String getNameAPA() {
 		return nameAPA;
 	}
-	public void setnameAPA(String nameAPA) {
+	public void setNameAPA(String nameAPA) {
 		this.nameAPA = nameAPA;
 	}
-	public String getcategorie() {
-		return categorie;
+	public String getDescriptionAPA() {
+		return descriptionAPA;
 	}
-	public void setcategorie(String categorie) {
-		this.categorie = categorie;
+	public void setDescriptionAPA(String descriptionAPA) {
+		this.descriptionAPA = descriptionAPA;
 	}
-	public String getType() {
-		return type;
+	public String getTypeAPA() {
+		return typeAPA;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setTypeAPA(String typeAPA) {
+		this.typeAPA = typeAPA;
 	}
-	public String getLienAssetes() {
-		return lienAssetes;
+	public String getCategorieAPA() {
+		return categorieAPA;
 	}
-	public void setLienAssetes(String lienAssetes) {
-		this.lienAssetes = lienAssetes;
+	public void setCategorieAPA(String categorieAPA) {
+		this.categorieAPA = categorieAPA;
 	}
-	public String getDate_publication() {
-		return date_publication;
+	public String getTagAPA() {
+		return tagAPA;
 	}
-	public void setDate_publication(String date_publication) {
-		this.date_publication = date_publication;
+	public void setTagAPA(String tagAPA) {
+		this.tagAPA = tagAPA;
 	}
-	public String getDateMsj() {
-		return dateMsj;
+	public String getDatePublicationAPA() {
+		return datePublicationAPA;
 	}
-	public void setDateMsj(String dateMsj) {
-		this.dateMsj = dateMsj;
+	public void setDatePublicationAPA(String datePublicationAPA) {
+		this.datePublicationAPA = datePublicationAPA;
 	}
-	@Override
-	public String toString() {
-		return "APA [id=" + id + ", nameAPA=" + nameAPA + ", categorie=" + categorie + ", type=" + type + ", lienAssetes="
-				+ lienAssetes + ", date_publication=" + date_publication + ", dateMsj=" + dateMsj + "]";
+	public String getDateMaj() {
+		return dateMaj;
+	}
+	public void setDateMaj(String dateMaj) {
+		this.dateMaj = dateMaj;
+	}
+	public int getIdEditeur() {
+		return idEditeur;
+	}
+	public void setIdEditeur(int idEditeur) {
+		this.idEditeur = idEditeur;
 	}
 	
 	

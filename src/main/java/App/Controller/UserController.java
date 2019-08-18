@@ -32,7 +32,7 @@ public class UserController {
 	private userService ServiceUser ;
 	
 	
-	@GetMapping("/adem")
+	@GetMapping("/AllUser")
 	public List<user> AllUser() {
 		return this.ServiceUser.getAlluser();
 	}
@@ -45,11 +45,22 @@ public class UserController {
 		
 	 @DeleteMapping ("/User/{iduser}")
 	  public void  DelteDoc (@PathVariable int iduser) {
+		 System.out.println(iduser);
    	 this.ServiceUser.DeleteUser(iduser);
 		
 	}
 	
-	
+	 @GetMapping("/User/valide")
+		public int UserValide(@RequestParam String password) {
+			 System.out.println(password);
+			 return this.ServiceUser.UserValide(password);
+		}
+	 @PutMapping("/User/valide")
+		
+		public void setUserValide(@RequestParam int valide,@RequestParam int iduser) {
+			System.out.println("var1="+valide+"var2="+iduser);
+			this.ServiceUser.setUservalide(iduser, valide);
+		}
 	@GetMapping("/User/var")
 	public user GetUser(@RequestParam String password) {
 		 System.out.println(password);

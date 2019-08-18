@@ -26,6 +26,14 @@ public class userService  {
     public List<user> getAlluser(){
     	return this.UserRepo.findAll();
     }
+    public int UserValide(String Password) {
+		  int valide=this.UserRepo.findBypass(Password).getValide();
+		 if( valide==1) {
+			 return 1;
+		 }else {
+			 return 0;
+		 }
+	}
 	public user findByPassword(String Password) {
 		System.out.println(this.UserRepo.findBypass(Password));
 		return this.UserRepo.findBypass(Password);
@@ -39,6 +47,14 @@ public class userService  {
 			return this.UserRepo.save(User);
 			
 	}
+	public void setUservalide(int id,int valide) {
+	    
+		 user user=this.UserRepo.findByid(id);
+		 user.setValide(valide);
+		 this.UserRepo.save(user);
+		
+    }
+	
 	public void DeleteUser(int id) {
 	    
 		this.UserRepo.deleteById(id);

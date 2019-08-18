@@ -48,8 +48,17 @@ public class user {
 	   private String pass;
 	   
 	   private String role;
+	   private int valide ;
 	  
-	   @OneToMany(mappedBy="User")
+	   public int getValide() {
+		return valide;
+	}
+
+	public void setValide(int valide) {
+		this.valide = valide;
+	}
+
+	@OneToMany(mappedBy="User")
 	   private List<DemandeRessource> demandeRess;
 	   
 	   @ManyToMany(

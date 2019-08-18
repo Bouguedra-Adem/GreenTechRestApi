@@ -2,7 +2,7 @@ package App.Model.lot1_5;
 
 import java.util.List;
 
-import App.Model.Ressource;
+import App.Model.lot4.RESSOURCE;
 
 public class Ged {
 	

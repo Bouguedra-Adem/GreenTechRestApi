@@ -45,7 +45,7 @@ public class ressourceMicroorganisme implements Serializable {
 	   @JoinTable(name = "ressource_famille",
 	   joinColumns = @JoinColumn(name = "ressource_id", referencedColumnName = "id"),
 	        inverseJoinColumns = @JoinColumn(name = "famille_id", referencedColumnName = "id"))
-	   private Set<famille> familles;
+	   private Set<Type> familles;
 	   
 	   @ManyToMany(cascade = CascadeType.ALL)
 	   @JoinTable(name = "rssource_groupe",

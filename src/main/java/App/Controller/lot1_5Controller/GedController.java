@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import App.Model.Ressource;
+import App.Model.User.user;
+import App.Model.lot1_5.DocNonIndex;
 import App.Model.lot1_5.Document;
 import App.Model.lot1_5.Ged;
 import App.Repo.lot1_5.DocumentRep;
@@ -35,6 +39,7 @@ public class GedController implements Serializer<Ged> {
 	@Autowired
 	@Resource
 	private DocumentService DocService;
+	
 	
 	
 	@GetMapping ("/Ged")
@@ -76,6 +81,23 @@ public class GedController implements Serializer<Ged> {
      public void DeleteDoc(@PathVariable int id ) {
     	 this.DocService.DeleteDocument(id);
      }
+     
+ 	@PutMapping("/DocIndex/{Idindex}")
+ 	public void ValideIndex(@PathVariable int Idindex,@RequestBody Document doc) {
+ 		System.out.println(doc);
+ 		System.out.println(Idindex);
+ 		this.DocService.setIndex(Idindex,doc);
+ 	}
+ 	@PostMapping(value="/DocIndex/create")
+	public  void addIndex ( @RequestBody DocNonIndex Doc) {
+		  this.DocService.CreatDocumentIndex(Doc);
+	}
+ 	@GetMapping ("/DocIndex")
+	public List<DocNonIndex> returnAllDocumentIndex(){
+		List <DocNonIndex> Doc=this.DocService.getAllDocumentNonIndex();
+			            
+		return Doc;
+	}
 
 	@Override
 	public void serialize(Ged object, OutputStream outputStream) throws IOException {

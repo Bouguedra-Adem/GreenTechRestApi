@@ -54,6 +54,13 @@ public class userService  {
 		 this.UserRepo.save(user);
 		
     }
+	public void setUserRole(int id,String role) {
+	    
+		 user user=this.UserRepo.findByid(id);
+		 user.setRole(role);;
+		 this.UserRepo.save(user);
+		
+   }
 	
 	public void DeleteUser(int id) {
 	    

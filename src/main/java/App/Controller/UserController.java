@@ -61,6 +61,12 @@ public class UserController {
 			System.out.println("var1="+valide+"var2="+iduser);
 			this.ServiceUser.setUservalide(iduser, valide);
 		}
+	 @PutMapping("/User/Role")
+		
+		public void setUserRole(@RequestParam String role,@RequestParam int iduser) {
+			System.out.println("var1="+role +"var2="+iduser);
+			this.ServiceUser.setUserRole(iduser,role);
+		}
 	@GetMapping("/User/var")
 	public user GetUser(@RequestParam String password) {
 		 System.out.println(password);

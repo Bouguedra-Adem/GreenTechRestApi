@@ -9,66 +9,60 @@ import javax.persistence.Id;
 public class Ressource {
 	@Id
 	  @GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private int id;
 	
 	private String RessourceName;
 	private String RessourceDescription;
 	private String RessourceType;
 	private String RessourceImage;
-	
-	public Ressource() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Ressource(long id, String ressourceName, String ressourceDescription, String ressourceType,
-			String ressourceImage) {
+    private int RessourceOcccupe;
+  
+	public Ressource(int id, String ressourceName, String ressourceDescription, String ressourceType,
+			String ressourceImage, int ressourceOcccupe) {
 		super();
 		this.id = id;
 		RessourceName = ressourceName;
 		RessourceDescription = ressourceDescription;
 		RessourceType = ressourceType;
 		RessourceImage = ressourceImage;
+		RessourceOcccupe = ressourceOcccupe;
 	}
-
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
 	public String getRessourceName() {
 		return RessourceName;
 	}
-
 	public void setRessourceName(String ressourceName) {
 		RessourceName = ressourceName;
 	}
-
 	public String getRessourceDescription() {
 		return RessourceDescription;
 	}
-
 	public void setRessourceDescription(String ressourceDescription) {
 		RessourceDescription = ressourceDescription;
 	}
-
 	public String getRessourceType() {
 		return RessourceType;
 	}
-
 	public void setRessourceType(String ressourceType) {
 		RessourceType = ressourceType;
 	}
-
 	public String getRessourceImage() {
 		return RessourceImage;
 	}
-
 	public void setRessourceImage(String ressourceImage) {
 		RessourceImage = ressourceImage;
 	}
+	public int getRessourceOcccupe() {
+		return RessourceOcccupe;
+	}
+	public void setRessourceOcccupe(int ressourceOcccupe) {
+		RessourceOcccupe = ressourceOcccupe;
+	}
+	
 	
 	}

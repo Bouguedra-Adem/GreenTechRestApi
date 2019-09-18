@@ -1,5 +1,6 @@
 package App.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,22 +11,29 @@ public class Ressource {
 	@Id
 	  @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
-	private String RessourceName;
-	private String RessourceDescription;
-	private String RessourceType;
-	private String RessourceImage;
-    private int RessourceOcccupe;
-  
-	public Ressource(int id, String ressourceName, String ressourceDescription, String ressourceType,
-			String ressourceImage, int ressourceOcccupe) {
+	 @Column(name="ressource_name")  
+	private String ressource_name;
+	 @Column(name="ressource_description")  
+	private String ressource_description;
+	 @Column(name="ressource_type")  
+	private String ressource_type;
+	 @Column(name="ressource_image") 
+	private String ressource_image;
+	 @Column(name="ressource_occcupe") 
+    private int ressource_occcupe;
+	public Ressource() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Ressource(int id, String ressource_name, String ressource_description, String ressource_type,
+			String ressource_image, int ressource_occcupe) {
 		super();
 		this.id = id;
-		RessourceName = ressourceName;
-		RessourceDescription = ressourceDescription;
-		RessourceType = ressourceType;
-		RessourceImage = ressourceImage;
-		RessourceOcccupe = ressourceOcccupe;
+		this.ressource_name = ressource_name;
+		this.ressource_description = ressource_description;
+		this.ressource_type = ressource_type;
+		this.ressource_image = ressource_image;
+		this.ressource_occcupe = ressource_occcupe;
 	}
 	public int getId() {
 		return id;
@@ -33,36 +41,42 @@ public class Ressource {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getRessourceName() {
-		return RessourceName;
+	public String getRessource_name() {
+		return ressource_name;
 	}
-	public void setRessourceName(String ressourceName) {
-		RessourceName = ressourceName;
+	public void setRessource_name(String ressource_name) {
+		this.ressource_name = ressource_name;
 	}
-	public String getRessourceDescription() {
-		return RessourceDescription;
+	public String getRessource_description() {
+		return ressource_description;
 	}
-	public void setRessourceDescription(String ressourceDescription) {
-		RessourceDescription = ressourceDescription;
+	public void setRessource_description(String ressource_description) {
+		this.ressource_description = ressource_description;
 	}
-	public String getRessourceType() {
-		return RessourceType;
+	public String getRessource_type() {
+		return ressource_type;
 	}
-	public void setRessourceType(String ressourceType) {
-		RessourceType = ressourceType;
+	public void setRessource_type(String ressource_type) {
+		this.ressource_type = ressource_type;
 	}
-	public String getRessourceImage() {
-		return RessourceImage;
+	public String getRessource_image() {
+		return ressource_image;
 	}
-	public void setRessourceImage(String ressourceImage) {
-		RessourceImage = ressourceImage;
+	public void setRessource_image(String ressource_image) {
+		this.ressource_image = ressource_image;
 	}
-	public int getRessourceOcccupe() {
-		return RessourceOcccupe;
+	public int getRessource_occcupe() {
+		return ressource_occcupe;
 	}
-	public void setRessourceOcccupe(int ressourceOcccupe) {
-		RessourceOcccupe = ressourceOcccupe;
+	public void setRessource_occcupe(int ressource_occcupe) {
+		this.ressource_occcupe = ressource_occcupe;
 	}
-	
+	@Override
+	public String toString() {
+		return "Ressource [id=" + id + ", ressource_name=" + ressource_name + ", ressource_description="
+				+ ressource_description + ", ressource_type=" + ressource_type + ", ressource_image=" + ressource_image
+				+ ", ressource_occcupe=" + ressource_occcupe + "]";
+	}
+  
 	
 	}

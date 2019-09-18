@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import App.exception.NotFoundException;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class RessourceController {
 	@Autowired
 	@Resource
@@ -38,7 +40,7 @@ public class RessourceController {
 	}
 	@PostMapping(value="/Ressource")
 	public  void addRessource ( @RequestBody Ressource res) {
-		
+		  System.out.println(res.toString());
 		  this.resService.saveRessource(res);
 		 
 		}
@@ -53,7 +55,7 @@ public class RessourceController {
 	 public void setRessourceOcup(int id,int occupe) {
 		    
 		 Ressource res=this.resService.findById(id);
-		 res.setRessourceOcccupe(occupe);
+		 res.setRessource_occcupe(occupe);
 		 this.resService.saveRessource(res);
 		
    }

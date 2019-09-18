@@ -71,6 +71,7 @@ public class userService  {
 	public void saveDemande(DemandeRessource demande,int iduser) {
 		 user us=this.UserRepo.getOne(iduser);
 		 us.getDemandeRess().add(demande);
+		 this.UserRepo.save(us);
 		 this.DemandeRepo.save(demande);
 	}
 	

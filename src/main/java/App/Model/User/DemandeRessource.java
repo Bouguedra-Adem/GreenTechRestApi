@@ -16,8 +16,22 @@ public class DemandeRessource {
 	    @ManyToOne
 	    private App.Model.User.user User;
 	    private int valide; /*0 =non envoyé,1 =envoyé mais n'est pas validé,2=envoyé et validé*/
-	    private int  RessourceId;
+	    private int  ressourceid;
+	    private String nomressource;
 	    private String date;
+		public DemandeRessource() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public DemandeRessource(int id, user user, int valide, int ressourceid, String nomressource, String date) {
+			super();
+			this.id = id;
+			User = user;
+			this.valide = valide;
+			this.ressourceid = ressourceid;
+			this.nomressource = nomressource;
+			this.date = date;
+		}
 		public int getId() {
 			return id;
 		}
@@ -36,11 +50,17 @@ public class DemandeRessource {
 		public void setValide(int valide) {
 			this.valide = valide;
 		}
-		public int getRessourceId() {
-			return RessourceId;
+		public int getRessourceid() {
+			return ressourceid;
 		}
-		public void setRessourceId(int ressourceId) {
-			RessourceId = ressourceId;
+		public void setRessourceid(int ressourceid) {
+			this.ressourceid = ressourceid;
+		}
+		public String getNomressource() {
+			return nomressource;
+		}
+		public void setNomressource(String nomressource) {
+			this.nomressource = nomressource;
 		}
 		public String getDate() {
 			return date;
@@ -48,6 +68,12 @@ public class DemandeRessource {
 		public void setDate(String date) {
 			this.date = date;
 		}
+		@Override
+		public String toString() {
+			return "DemandeRessource [id=" + id + ", User=" + User + ", valide=" + valide + ", ressourceid="
+					+ ressourceid + ", nomressource=" + nomressource + ", date=" + date + "]";
+		}
+		
 	    
 	   
 

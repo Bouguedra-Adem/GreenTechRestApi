@@ -4,15 +4,28 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 	import javax.persistence.Entity;
-	import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 	import javax.persistence.GenerationType;
 	import javax.persistence.Id;
-	import javax.persistence.Table;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import App.Model.User.user;
 
 @Entity
 @Table(name="Document")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Document {
 	@Id 
 	   @GeneratedValue(strategy=GenerationType.AUTO)
@@ -31,6 +44,14 @@ public class Document {
 	    private String categorie="";
 	   private 	String tag;
 	   private 	String lienAssetes;
+	   @ManyToMany(
+	            fetch = FetchType.LAZY,
+	            cascade = {CascadeType.MERGE, CascadeType.PERSIST}, 
+	            mappedBy = "doc"
+	    )
+	    @OnDelete(action = OnDeleteAction.CASCADE)
+	    @JsonIgnore
+	   private List<user> Userr;
 	   
 	public Document() {
 		super();
@@ -127,6 +148,18 @@ public class Document {
 
 	public void setLienAssetes(String lienAssetes) {
 		this.lienAssetes = lienAssetes;
+	}
+
+
+
+	public List<user> getUser() {
+		return Userr;
+	}
+
+
+
+	public void setUser(List<user> user) {
+		Userr = user;
 	}
 
 

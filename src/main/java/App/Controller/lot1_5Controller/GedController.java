@@ -13,14 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.serializer.Serializer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import App.Model.Ressource;
+import App.Model.User.user;
+import App.Model.lot1_5.DocNonIndex;
 import App.Model.lot1_5.Document;
 import App.Model.lot1_5.Ged;
 import App.Repo.lot1_5.DocumentRep;
@@ -36,10 +41,11 @@ public class GedController implements Serializer<Ged> {
 	private DocumentService DocService;
 	
 	
+	
 	@GetMapping ("/Ged")
 	public Ged returnAllGed() {
 		Ged ged=new Ged();
-		System.out.println(returnAllDocument().toString());
+		
 		ged.setDocument(returnAllDocument());
 		ged.setNbDocument(returnAllDocument().size());
 		return ged;
@@ -47,8 +53,8 @@ public class GedController implements Serializer<Ged> {
 	@GetMapping ("/Doc")
 	public List<Document> returnAllDocument(){
 		List <Document> Doc=this.DocService.getAllDocument();
-		 for(Iterator<Document> it=Doc.iterator(); it.hasNext();) 
-	            System.out.println(it.next().toString()); 
+		
+	            
 		return Doc;
 	}
 	@GetMapping ("/Doc/{id}")
@@ -58,6 +64,7 @@ public class GedController implements Serializer<Ged> {
 
 	 @PostMapping(value = "/Doc")
 	    public ResponseEntity<Void> AddDocument(@RequestBody Document doc) {
+		
 	        Document DocAdd=  DocService.CreatDocument(doc);
 	        if (DocAdd == null)
 	            return ResponseEntity.noContent().build();
@@ -70,7 +77,27 @@ public class GedController implements Serializer<Ged> {
 	        return ResponseEntity.created(location).build();
 	    }
 	
-
+     @DeleteMapping(value = "/Doc/{id}")
+     public void DeleteDoc(@PathVariable int id ) {
+    	 this.DocService.DeleteDocument(id);
+     }
+     
+ 	@PutMapping("/DocIndex/{Idindex}")
+ 	public void ValideIndex(@PathVariable int Idindex,@RequestBody Document doc) {
+ 		System.out.println(doc);
+ 		System.out.println(Idindex);
+ 		this.DocService.setIndex(Idindex,doc);
+ 	}
+ 	@PostMapping(value="/DocIndex/create")
+	public  void addIndex ( @RequestBody DocNonIndex Doc) {
+		  this.DocService.CreatDocumentIndex(Doc);
+	}
+ 	@GetMapping ("/DocIndex")
+	public List<DocNonIndex> returnAllDocumentIndex(){
+		List <DocNonIndex> Doc=this.DocService.getAllDocumentNonIndex();
+			            
+		return Doc;
+	}
 
 	@Override
 	public void serialize(Ged object, OutputStream outputStream) throws IOException {
